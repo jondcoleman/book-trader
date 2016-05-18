@@ -1,0 +1,20 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "mongodb": "mongodb://localhost:27017/bookTrader",
+  "public": "../public/",
+  "auth": {
+    "token": {
+      "secret": "VJo5BQROPf5lwQoXJWC1n67qOdYctqINqviUGJbIk88D7HSpV7YjJRXa4FgMUm1/+I98RAuagQnEITKpDWJm8A=="
+    },
+    "local": {},
+    "google": {
+      "clientID": "your google client id",
+      "clientSecret": "your google client secret",
+      "permissions": {
+        "scope": ["profile"]
+      }
+    }
+  },
+  "corsWhitelist": []
+}
