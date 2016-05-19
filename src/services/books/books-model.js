@@ -15,8 +15,10 @@ const booksSchema = new Schema({
   author: { type: String, required: false},
   imageUrl: { type: String, required: false},
   userId: { type: Schema.ObjectId, required: true },
-  tradePending: { type: String, required: true, 'default': false},
-  tradeTo: { type: Schema.ObjectId, required: false },
+  trades: [{
+    fromUser: { type: Schema.ObjectId, required: true },
+    bookOffered: { type: Schema.ObjectId, required: true }
+  }]
 });
 
 const booksModel = mongoose.model('books', booksSchema);
