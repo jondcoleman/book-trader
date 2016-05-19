@@ -4,6 +4,14 @@ const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
 
+let myHook = function(options) {
+  return function(hook) {
+    console.log('My custom hook ran!');
+    hook.data.updatedAt = new Date();
+    console.log(hook.data)
+  }
+}
+
 exports.before = {
   all: [
     auth.verifyToken(),
@@ -13,7 +21,7 @@ exports.before = {
   find: [],
   get: [],
   create: [auth.associateCurrentUser()],
-  update: [],
+  update: [myHook()],
   patch: [],
   remove: []
 };
