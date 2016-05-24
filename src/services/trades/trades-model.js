@@ -9,10 +9,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tradesSchema = new Schema({
-  fromUser: { type: Schema.ObjectId, required: true },
-  bookOffered: { type: Schema.ObjectId, required: true },
-  toUser: { type: Schema.ObjectId, required: true },
-  bookRequested: { type: Schema.ObjectId, required: true },
+  fromUser: { type: Schema.ObjectId, required: false },
+  bookOffered: { type: Schema.ObjectId, required: false },
+  toUser: { type: Schema.ObjectId, required: false },
+  bookRequested: { type: Schema.ObjectId, required: false },
   status: { type: String, required: true, 'default': 'new'},
   createdAt: { type: Date, 'default': Date.now },
   updatedAt: { type: Date, 'default': Date.now }
