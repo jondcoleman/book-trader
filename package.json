@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test": "npm run jshint && npm run mocha",
+    "babel-node": "babel-node --presets=es2015",
     "jshint": "jshint src/. test/. --config",
     "start": "babel-node src/",
     "mocha": "mocha test/ --compilers js:babel-core/register --recursive"
