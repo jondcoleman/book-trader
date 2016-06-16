@@ -4,23 +4,17 @@ const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
 
-let dateUpdate = function(options) {
-  return function(hook) {
-    hook.data.updatedAt = new Date();
-  }
-}
-
 exports.before = {
   all: [
-    auth.verifyToken(),
-    auth.populateUser(),
-    auth.restrictToAuthenticated()
+    // auth.verifyToken(),
+    // auth.populateUser(),
+    // auth.restrictToAuthenticated()
   ],
   find: [],
   get: [],
   create: [auth.associateCurrentUser()],
-  update: [dateUpdate()],
-  patch: [],
+  update: [globalHooks.timestamp('updatedAt')],
+  patch: [globalHooks.timestamp('updatedAt')],
   remove: []
 };
 

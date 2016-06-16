@@ -30,6 +30,10 @@ let logData = function(hook) {
   console.log(hook.data)
 }
 
+let logResult = function(hook) {
+  console.log(hook.result)
+}
+
 exports.before = {
   all: [
     // auth.verifyToken(),
@@ -39,19 +43,22 @@ exports.before = {
   find: [],
   get: [],
   create: [
+    globalHooks.timestamp('createdAt'),
     toUserHook,
     fromUserHook,
     logData
   ],
-  update: [],
-  patch: [transactionHook],
+  update: [globalHooks.timestamp('updatedAt')],
+  patch: [
+    globalHooks.timestamp('updatedAt'),
+    transactionHook],
   remove: []
 };
 
 exports.after = {
-  all: [],
-  find: [],
-  get: [],
+  all: [logData],
+  find: [hooks.populate('toUserObj', { service: 'users', field: 'toUser' })],
+  get: [hooks.populate('toUserObj', { service: 'users', field: 'toUser' })],
   create: [],
   update: [],
   patch: [],

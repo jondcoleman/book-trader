@@ -1,0 +1,27 @@
+body {
+  padding: 10px;
+}
+
+.book.card {
+  display: flex;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.spacer {
+  flex-grow: 1;
+}
+
+.book.title {
+  padding-bottom: 1em;
+  text-align: center;
+}
+
+.book.image {
+  max-height: 200px;
+}
+
+.flex-item {
+  margin: 0 auto;
+}
