@@ -78,13 +78,9 @@ const App = React.createClass({
     )
   },
   render: function() {
-    return this.state.pending ?
-      <Spinner spin={true} />
-      : <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
+    if (this.state.pending) return <Spinner spin={true} />
+    return <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
   }
 })
 
-const Unauthenticated = () => <p>Not authenticated</p>
-let authenticated = true
-if (authenticated) render(<App/>, document.getElementById('app'))
-else render(Unauthenticated, document.getElementById('app'))
+render(<App/>, document.getElementById('app'))
