@@ -5,12 +5,35 @@ import AllBooks from './components/AllBooks'
 import MyBooks from './components/MyBooks'
 import Trades from './components/Trades'
 import Profile from './components/Profile'
+import Spinner from './components/Spinner'
+import AuthWrapper from './components/AuthWrapper'
+import $ from 'jquery'
+import feathers from 'feathers-client'
 
 import books from './components/data'
 
+const host = 'http://localhost:3030'
+
+const app = feathers()
+  .configure(feathers.rest(host).fetch(fetch))
+  .configure(feathers.hooks())
+  .configure(feathers.authentication())
+
 const App = React.createClass({
   getInitialState: function() {
-    return { page: 'Add' }
+    return {
+      page: 'Add',
+      authenticated: false,
+      pending: true
+    }
+  },
+  componentDidMount: function() {
+    app.authenticate()
+      .then(data => this.setState({ authenticated: true, pending: false }))
+      .catch(err => {
+        this.setState({ pending: false })
+        console.error(err)
+      })
   },
   getPage: function() {
     let pages = {
@@ -25,7 +48,7 @@ const App = React.createClass({
   handlePage: function(page) {
     this.setState({ page })
   },
-  render: function() {
+  renderPage: function() {
     return (
       <div>
         <ul className="vertical medium-horizontal menu">
@@ -53,7 +76,15 @@ const App = React.createClass({
         </div>
       </div>
     )
+  },
+  render: function() {
+    return this.state.pending ?
+      <Spinner spin={true} />
+      : <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
   }
 })
 
-render(<App/>, document.getElementById('app'))
+const Unauthenticated = () => <p>Not authenticated</p>
+let authenticated = true
+if (authenticated) render(<App/>, document.getElementById('app'))
+else render(Unauthenticated, document.getElementById('app'))

@@ -5,7 +5,7 @@ const BookCard = React.createClass({
   getButton: function() {
     let buttons = {
       Add: <button type="button" className="button" onClick={this.handleAdd}>Add</button>,
-      Delete: <button type="button" className="button" onClick={this.handleDelete}>Delete</button>,
+      Delete: <button type="button" className="button alert" onClick={this.handleDelete}>Delete</button>,
       Request: <button type="button" className="button success" onClick={this.handleRequest}>Request</button>,
       Choose: <button type="button" className="button success" onClick={this.handleChoose}>Choose</button>,
       Accept: <button type="button" className="button success" onClick={this.handleAccept}>Accept</button>,

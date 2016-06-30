@@ -14,7 +14,8 @@
       "permissions": {
         "scope": ["profile"]
       }
-    }
+    },
+    "successRedirect": "/home"
   },
   "corsWhitelist": []
 }

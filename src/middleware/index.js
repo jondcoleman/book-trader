@@ -13,6 +13,7 @@ module.exports = function() {
   const app = this;
 
   app.post('/signup', signup(app))
+
   app.use(notFound());
   app.use(logger(app));
   app.use(handler());

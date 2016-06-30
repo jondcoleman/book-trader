@@ -21,7 +21,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'public/'),
     proxy: {
-      '/books/': {
+      '/*': {
         target: 'http://localhost:3030/',
         secure: false
       }

@@ -3,6 +3,9 @@
 const service = require('feathers-mongoose');
 const books = require('./books-model');
 const hooks = require('./hooks');
+const path = require('path')
+
+const authorized = require(path.join(process.cwd(), 'src/middleware/authorized'));
 
 module.exports = function() {
   const app = this;
@@ -26,4 +29,15 @@ module.exports = function() {
 
   // Set up our after hooks
   booksService.after(hooks.after);
+
+
+  app.get('/home', authorized(app), (req, res) => {
+    if (!req.authorized) next()
+    res.sendFile(path.join(process.cwd(), 'public/home.html'))
+  })
+
+  app.get('/test', (req, res) => {
+    console.log(req.feathers)
+    res.json({message: 'hello world'})
+  })
 };
