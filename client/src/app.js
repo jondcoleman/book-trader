@@ -12,12 +12,12 @@ import feathers from 'feathers-client'
 
 import books from './components/data'
 
-const host = 'http://localhost:3030'
+const host = window.location.origin
 
 const app = feathers()
   .configure(feathers.rest(host).fetch(fetch))
   .configure(feathers.hooks())
-  .configure(feathers.authentication())
+  .configure(feathers.authentication({ storage: window.localStorage }))
 
 const App = React.createClass({
   getInitialState: function() {
@@ -79,6 +79,7 @@ const App = React.createClass({
   },
   render: function() {
     if (this.state.pending) return <Spinner spin={true} />
+    // return <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
     return <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
   }
 })
