@@ -5,10 +5,16 @@ import AllBooks from './components/AllBooks'
 import MyBooks from './components/MyBooks'
 import Trades from './components/Trades'
 import Profile from './components/Profile'
+import ProfileContainer from './containers/profileContainer'
 import Spinner from './components/Spinner'
 import AuthWrapper from './components/AuthWrapper'
 import $ from 'jquery'
 import feathers from 'feathers-client'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import bookApp from './reducers'
+
+let store = createStore(bookApp)
 
 import books from './components/data'
 
@@ -41,7 +47,7 @@ const App = React.createClass({
       All: <AllBooks/>,
       My: <MyBooks/>,
       Trades: <Trades/>,
-      Profile: <Profile />
+    Profile: <ProfileContainer />
     }
     return pages[this.state.page]
   },
@@ -80,7 +86,10 @@ const App = React.createClass({
   render: function() {
     if (this.state.pending) return <Spinner spin={true} />
     // return <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
-    return <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
+    return (
+      < Provider store={ store } >
+        <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
+      </ Provider >)
   }
 })
 

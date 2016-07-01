@@ -2,11 +2,12 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    main: path.resolve(__dirname, 'client/src/app.js')
+    bundle: path.resolve(__dirname, 'client/src/app.js'),
+    test: path.resolve(__dirname, 'client/src/test.js')
   },
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   module: {
     loaders: [

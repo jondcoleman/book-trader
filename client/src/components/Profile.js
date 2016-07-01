@@ -15,42 +15,38 @@ const userService = app.service('users')
 
 const Profile = React.createClass({
   getInitialState: function() {
-    return {
-      FirstName: '',
-      LastName: '',
-      City: '',
-      State: ''
-    }
+    console.log(this.props)
+    return this.props.user || {}
   },
-  componentDidMount: function() {
-    app.authenticate()
-      .then(res => {
-        this.setState({
-          id: res.data._id,
-          FirstName: res.data.firstName,
-          LastName: res.data.lastName,
-          City: res.data.city,
-          State: res.data.state,
-        })
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  },
+  // componentDidMount: function() {
+  //   app.authenticate()
+  //     .then(res => {
+  //       this.setState({
+  //         id: res.data._id,
+  //         FirstName: res.data.firstName,
+  //         LastName: res.data.lastName,
+  //         City: res.data.city,
+  //         State: res.data.state,
+  //       })
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // },
   handleInputChange: function(e) {
     const newPropObj = {}
     newPropObj[e.target.id] = e.target.value
     this.setState(newPropObj)
   },
-  handleSave: function(e) {
-    e.preventDefault()
-    userService.patch(this.state.id, {
-      firstName: this.state.FirstName,
-      lastName: this.state.LastName,
-      city: this.state.City,
-      state: this.state.State,
-    })
-  },
+  // handleSave: function(e) {
+  //   e.preventDefault()
+  //   userService.patch(this.state.id, {
+  //     firstName: this.state.FirstName,
+  //     lastName: this.state.LastName,
+  //     city: this.state.City,
+  //     state: this.state.State,
+  //   })
+  // },
   render: function() {
     return (
       <form>
@@ -94,7 +90,7 @@ const Profile = React.createClass({
             </label>
           </div>
           <div className="small-12 medium-6 columns">
-            <button className="button" onClick={this.handleSave}>Save</button>
+            <button className="button" onClick={this.props.handleSave}>Save</button>
           </div>
         </div>
 

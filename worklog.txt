@@ -1,4 +1,6 @@
 implementing redux - replace profile stuff with redux
+ON SEPARATE BRANCH
+I got initial state working from the user store but haven't gotten the save to work yet
 
 next step is to hook up the back end to the front end - maybe use redux
 
