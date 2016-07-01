@@ -1,4 +1,5 @@
-setting up linting - maybe need to install modules?
+implementing redux - replace profile stuff with redux
+
 next step is to hook up the back end to the front end - maybe use redux
 
 TODO
