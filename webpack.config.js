@@ -2,8 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    bundle: path.resolve(__dirname, 'client/src/app.js'),
-    test: path.resolve(__dirname, 'client/src/test.js')
+    bundle: path.resolve(__dirname, 'client/src/index.js')
   },
   output: {
     path: path.resolve(__dirname, 'public'),

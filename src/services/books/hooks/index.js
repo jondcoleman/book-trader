@@ -10,9 +10,9 @@ const logAuth = function(hook) {
 
 exports.before = {
   all: [
-    // auth.verifyToken(),
-    // auth.populateUser(),
-    // auth.restrictToAuthenticated()
+    auth.verifyToken(),
+    auth.populateUser(),
+    auth.restrictToAuthenticated(),
     logAuth
   ],
   find: [],

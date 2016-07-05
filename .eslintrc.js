@@ -8,6 +8,8 @@ module.exports = {
             2,
             "never"
         ],
-        "comma-dangle": 0
+        "comma-dangle": 0,
+        "react/prefer-es6-class": 0,
+        "object-shorthand": 0
     }
 };

@@ -1,7 +1,11 @@
 import React from 'react'
-import books from './data'
+import { connect } from 'react-redux'
+import { updateUser } from '../actions'
+import app from '../feathers-app'
 
-const BookCard = React.createClass({
+const bookService = app.service('books')
+
+let BookCard = React.createClass({
   getButton: function() {
     let buttons = {
       Add: <button type="button" className="button" onClick={this.handleAdd}>Add</button>,
@@ -16,7 +20,7 @@ const BookCard = React.createClass({
     return (
       <div className="book card column small-6 medium-3 large-2 align-stretch" ref="bookCol">
         <div className="flex-item">
-        <img onError={this.handleImgError} className="thumbnail book image" src={this.props.book.imageUrl} alt={this.props.book.title}/>
+        <img onError={this.handleImgError} className="thumbnail book image" src={this.props.book.imageUrl || 'noimage'} alt={this.props.book.title}/>
           </div>
         <div className="spacer"></div>
         <div className="book title">{this.props.book.title}</div>
@@ -29,7 +33,7 @@ const BookCard = React.createClass({
   },
   handleAdd(e) {
     e.target.disabled = true
-    books.push(
+    bookService.create(
       {
         id: this.props.book.id,
         title: this.props.book.title,
@@ -37,7 +41,8 @@ const BookCard = React.createClass({
         imageUrl: this.props.book.imageUrl
       }
     )
-    console.log(JSON.stringify(books))
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
   },
   handleDelete: function () {
     notImpl()

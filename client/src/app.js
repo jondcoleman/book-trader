@@ -1,96 +1,50 @@
 import React from 'react'
-import { render } from 'react-dom'
-import BookSearch from './components/BookSearch'
-import AllBooks from './components/AllBooks'
-import MyBooks from './components/MyBooks'
-import Trades from './components/Trades'
-import Profile from './components/Profile'
-import ProfileContainer from './containers/profileContainer'
+import Main from './components/Main'
 import Spinner from './components/Spinner'
 import AuthWrapper from './components/AuthWrapper'
-import $ from 'jquery'
-import feathers from 'feathers-client'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import bookApp from './reducers'
+import app from './feathers-app'
 
-let store = createStore(bookApp)
+import { connect } from 'react-redux'
 
-import books from './components/data'
+import { authenticateUser } from './actions'
 
-const host = window.location.origin
-
-const app = feathers()
-  .configure(feathers.rest(host).fetch(fetch))
-  .configure(feathers.hooks())
-  .configure(feathers.authentication({ storage: window.localStorage }))
-
-const App = React.createClass({
-  getInitialState: function() {
-    return {
-      page: 'Add',
-      authenticated: false,
-      pending: true
-    }
-  },
+let App = React.createClass({
   componentDidMount: function() {
-    app.authenticate()
-      .then(data => this.setState({ authenticated: true, pending: false }))
-      .catch(err => {
-        this.setState({ pending: false })
-        console.error(err)
-      })
-  },
-  getPage: function() {
-    let pages = {
-      Add: <BookSearch/>,
-      All: <AllBooks/>,
-      My: <MyBooks/>,
-      Trades: <Trades/>,
-    Profile: <ProfileContainer />
-    }
-    return pages[this.state.page]
-  },
-  handlePage: function(page) {
-    this.setState({ page })
-  },
-  renderPage: function() {
-    return (
-      <div>
-        <ul className="vertical medium-horizontal menu">
-          <li className={this.state.page === 'Add' ? "active": ""}>
-            <a href="#1" onClick={this.handlePage.bind(this, 'Add')}>Add a Book</a>
-          </li>
-          <li className={this.state.page === 'All' ? "active": ""}>
-            <a href="#2" onClick={this.handlePage.bind(this, 'All')}>All Books</a>
-          </li>
-          <li className={this.state.page === 'My' ? "active": ""}>
-            <a href="#3" onClick={this.handlePage.bind(this, 'My')}>My Books</a>
-          </li>
-          <li className={this.state.page === 'Trades' ? "active": ""}>
-            <a href="#4" onClick={this.handlePage.bind(this, 'Trades')}>Trades</a>
-          </li>
-          <li className={this.state.page === 'Profile' ? "active": ""}>
-            <a href="#5" onClick={this.handlePage.bind(this, 'Profile')}>Profile</a>
-          </li>
-        </ul>
-        <hr/>
-        <div className="row">
-          <div className="column small-12">
-            {this.getPage()}
-          </div>
-        </div>
-      </div>
-    )
+    this.props.authenticate()
   },
   render: function() {
-    if (this.state.pending) return <Spinner spin={true} />
-    // return <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
-    return (
-      < Provider store={ store } >
-        <AuthWrapper authenticated={this.state.authenticated} component={this.renderPage()} />
-      </ Provider >)
+    if (this.props.authPending) return <Spinner spin />
+    return <AuthWrapper authenticated={this.props.authenticated} component={< Main />} />
   }
 })
 
-render(<App/>, document.getElementById('app'))
+const mapStateToProps = (state, ownProps) => {
+  return {
+    authenticated: state.user.authenticated,
+    authPending: state.user.authPending
+  }
+}
+
+const authenticate = function(dispatch) {
+  app.authenticate()
+    .then(function(res){
+      return dispatch(authenticateUser(true, res.data))
+    })
+    .catch(function(err){
+      return dispatch(authenticateUser(false, {}))
+    })
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    authenticate: () => authenticate(dispatch)
+  }
+}
+
+App = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null
+)(App)
+
+export default App
