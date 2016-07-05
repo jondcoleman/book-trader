@@ -3,24 +3,23 @@ import { updateUser } from '../actions'
 import Profile from '../components/Profile'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps, state)
   return {
     user: state.user
   }
 }
 
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    handleSave: () => {
-      dispatch(updateUser(ownProps.user))
+    handleSave: (state) => {
+      dispatch(updateUser(state))
     }
   }
 }
 
 const ProfileContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  null
 )(Profile)
 
 export default ProfileContainer

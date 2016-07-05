@@ -15,7 +15,6 @@ const userService = app.service('users')
 
 const Profile = React.createClass({
   getInitialState: function() {
-    console.log(this.props)
     return this.props.user || {}
   },
   // componentDidMount: function() {
@@ -38,15 +37,16 @@ const Profile = React.createClass({
     newPropObj[e.target.id] = e.target.value
     this.setState(newPropObj)
   },
-  // handleSave: function(e) {
-  //   e.preventDefault()
-  //   userService.patch(this.state.id, {
-  //     firstName: this.state.FirstName,
-  //     lastName: this.state.LastName,
-  //     city: this.state.City,
-  //     state: this.state.State,
-  //   })
-  // },
+  handleSave: function(e) {
+    e.preventDefault()
+    // userService.patch(this.state.id, {
+    //   firstName: this.state.FirstName,
+    //   lastName: this.state.LastName,
+    //   city: this.state.City,
+    //   state: this.state.State,
+    // })
+    return this.props.handleSave(this.state)
+  },
   render: function() {
     return (
       <form>
@@ -90,7 +90,7 @@ const Profile = React.createClass({
             </label>
           </div>
           <div className="small-12 medium-6 columns">
-            <button className="button" onClick={this.props.handleSave}>Save</button>
+            <button className="button" onClick={this.handleSave}>Save</button>
           </div>
         </div>
 

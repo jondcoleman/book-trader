@@ -9,6 +9,8 @@ function user(state = defaultState, action) {
   console.log(state)
   switch (action.type) {
     case UPDATE_USER:
+      console.log('test')
+      console.log(action)
       return action.details
     default:
       return state
