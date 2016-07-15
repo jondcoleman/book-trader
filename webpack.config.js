@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     bundle: path.resolve(__dirname, 'client/src/index.js')
   },
