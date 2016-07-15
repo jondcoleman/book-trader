@@ -20,8 +20,8 @@ let App = React.createClass({
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    authenticated: state.user.authenticated,
-    authPending: state.user.authPending
+    authenticated: state.users.authenticated,
+    authPending: state.users.authPending
   }
 }
 
