@@ -6,7 +6,7 @@ import app from './feathers-app'
 
 import { connect } from 'react-redux'
 
-import { authenticateUser } from './actions'
+import { authenticateUser } from './actions/actionCreators.js'
 
 let App = React.createClass({
   componentDidMount: function() {

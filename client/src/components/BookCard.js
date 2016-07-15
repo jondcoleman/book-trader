@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateUser } from '../actions'
+import { updateUser } from '../actions/actionCreators.js'
 import app from '../feathers-app'
 
 const bookService = app.service('books')

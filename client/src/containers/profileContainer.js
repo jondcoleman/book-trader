@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { updateUser } from '../actions'
+import { updateUser } from '../actions/actionCreators.js'
 import Profile from '../components/Profile'
 import app from '../feathers-app'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { loadAllBooks } from '../actions'
+import { loadAllBooks } from '../actions/actionCreators.js'
 import BookList from './BookList'
 import app from '../feathers-app'
 
