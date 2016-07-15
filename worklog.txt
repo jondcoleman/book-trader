@@ -1,7 +1,5 @@
-implementing redux - profile modified with redux - now need to connect to server
+implementing redux - just added redux-thunk.  Need to create async actions.
 ON SEPARATE BRANCH
-
-next step is to hook up the back end to the front end - maybe use redux
 
 TODO
 add fetch polyfill
