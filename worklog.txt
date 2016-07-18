@@ -1,4 +1,5 @@
-implementing redux - just added redux-thunk.  Need to create async actions.
+reduxifying - just finished book delete - need to compose book fetching and filtering for my books
+
 ON SEPARATE BRANCH
 
 TODO
