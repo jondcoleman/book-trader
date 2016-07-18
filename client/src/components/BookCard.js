@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { updateUser } from '../actions/actionCreators.js'
 import app from '../feathers-app'
 
 const bookService = app.service('books')
@@ -33,19 +31,11 @@ let BookCard = React.createClass({
   },
   handleAdd(e) {
     e.target.disabled = true
-    bookService.create(
-      {
-        id: this.props.book.id,
-        title: this.props.book.title,
-        authors: this.props.book.authors,
-        imageUrl: this.props.book.imageUrl
-      }
-    )
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err))
+    this.props.addBook(this.props.book)
   },
-  handleDelete: function () {
-    notImpl()
+  handleDelete: function (e) {
+    e.target.disabled = true
+    this.props.deleteBook(this.props.book)
   },
   handleRequest: function() {
     notImpl()

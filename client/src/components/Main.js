@@ -1,7 +1,7 @@
 import React from 'react'
 import BookSearch from './BookSearch'
 import AllBooks from './AllBooks'
-import MyBooks from './MyBooks'
+import MyBooks from '../containers/MyBooksCont'
 import Trades from './Trades'
 import ProfileContainer from '../containers/profileContainer'
 
