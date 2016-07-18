@@ -36,23 +36,28 @@ let logResult = function(hook) {
 
 exports.before = {
   all: [
-    // auth.verifyToken(),
-    // auth.populateUser(),
-    // auth.restrictToAuthenticated()
+    auth.verifyToken(),
+    auth.populateUser(),
+    auth.restrictToAuthenticated()
   ],
   find: [],
-  get: [],
+  get: [auth.restrictToOwner({ idField: '_id', ownerField: 'toUser' })],
   create: [
     globalHooks.timestamp('createdAt'),
     toUserHook,
     fromUserHook,
     logData
   ],
-  update: [globalHooks.timestamp('updatedAt')],
-  patch: [
+  update: [
     globalHooks.timestamp('updatedAt'),
-    transactionHook],
-  remove: []
+    // hooks.restrictToOwner({ idField: '_id', ownerField: 'toUser' })
+  ],
+  patch: [
+    auth.restrictToOwner({ idField: '_id', ownerField: 'toUser' }),
+    globalHooks.timestamp('updatedAt'),
+    transactionHook
+  ],
+  remove: [auth.restrictToOwner({ idField: '_id', ownerField: 'toUser' })]
 };
 
 exports.after = {

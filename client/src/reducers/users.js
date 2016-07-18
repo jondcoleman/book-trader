@@ -7,7 +7,7 @@ function users(state = defaultState, action) {
   switch (action.type) {
     case 'UPDATE_USER':
       console.log(action)
-      return Object.assign({}, state, action.details)
+      return Object.assign({}, state, action.user)
     // case GET_USER:
     //
     //   return state

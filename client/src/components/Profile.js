@@ -17,7 +17,8 @@ const Profile = React.createClass({
   },
   handleSave: function(e) {
     e.preventDefault()
-    return this.props.handleSave(this.state.user)
+    console.log(this.state.user)
+    this.props.updateUser(this.state.user)
   },
   render: function() {
     return (

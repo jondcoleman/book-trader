@@ -1,4 +1,6 @@
-reduxifying - just finished book delete - need to compose book fetching and filtering for my books
+reduxifying
+- working on trades.  Just got fetch working for trades but it's finding all trades.
+  Need to either limit trades on server or client to only the users' trades
 
 ON SEPARATE BRANCH
 

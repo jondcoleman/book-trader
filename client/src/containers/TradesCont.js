@@ -1,20 +1,14 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreators from '../actions/actionCreators'
-import Profile from '../components/Profile'
+import Trades from '../components/Trades'
 
 const mapStateToProps = state => {
-  return {
-    user: state.users
-  }
+  return { trades: state.trades }
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 
-const ProfileContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null
-)(Profile)
+const TradesCont = connect(mapStateToProps, mapDispatchToProps)(Trades)
 
-export default ProfileContainer
+export default TradesCont
