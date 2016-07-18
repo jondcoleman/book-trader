@@ -9,7 +9,7 @@ let BookCard = React.createClass({
       Add: <button type="button" className="button" onClick={this.handleAdd}>Add</button>,
       Delete: <button type="button" className="button alert" onClick={this.handleDelete}>Delete</button>,
       Request: <button type="button" className="button success" onClick={this.handleRequest}>Request</button>,
-      Choose: <button type="button" className="button success" onClick={this.handleChoose}>Choose</button>,
+      Offer: <button type="button" className="button success" onClick={this.handleOffer}>Offer</button>,
       Accept: <button type="button" className="button success" onClick={this.handleAccept}>Accept</button>,
     }
     return buttons[this.props.action]
@@ -38,13 +38,13 @@ let BookCard = React.createClass({
     this.props.deleteBook(this.props.book)
   },
   handleRequest: function() {
-    notImpl()
+    this.props.toggleRequesting()
   },
   handleAccept: function() {
     notImpl()
   },
-  handleChoose: function() {
-    notImpl()
+  handleOffer: function() {
+    this.props.toggleRequesting()
   }
 })
 

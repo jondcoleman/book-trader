@@ -1,7 +1,7 @@
 reduxifying
-- working on trades.  Just got fetch working for trades but it's finding all trades.
-  Need to either limit trades on server or client to only the users' trades
-- Also need to double check server side auth on everything
+- Probably need to re-architect book stuff to handle all the buttons, especially when processing trade
+- Need to only allow requests for books that aren't my own.
+- Need to double check server side auth on everything
 
 ON SEPARATE BRANCH
 

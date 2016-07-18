@@ -25,6 +25,12 @@ let fromUserHook = function(hook) {
       hook.data.fromUser = book.userId
     })
 }
+// limit trade results to the current user being the from User or to User
+let filterTradesToUser = function(hook) {
+  let data = hook.result.data
+  const userId = hook.params.user._id
+  data = data.filter(trade => trade.toUser === userId || trade.fromUser === userId)
+}
 
 let logData = function(hook) {
   console.log(hook.data)
@@ -62,8 +68,8 @@ exports.before = {
 
 exports.after = {
   all: [logData],
-  find: [hooks.populate('toUserObj', { service: 'users', field: 'toUser' })],
-  get: [hooks.populate('toUserObj', { service: 'users', field: 'toUser' })],
+  find: [filterTradesToUser],
+  get: [],
   create: [],
   update: [],
   patch: [],

@@ -9,8 +9,6 @@ module.exports = function() {
 
   class TradeService extends Service {
     update(id, data, params) {
-      console.log('implement', data)
-
       return super.update(id, data, params)
     }
   }
