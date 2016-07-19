@@ -11,6 +11,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 
-const BookCardCont = connect(mapStateToProps, mapDispatchToProps)(MyBooks)
+const MyBooksCont = connect(mapStateToProps, mapDispatchToProps)(MyBooks)
 
-export default BookCardCont
+export default MyBooksCont

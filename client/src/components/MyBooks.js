@@ -8,7 +8,7 @@ const MyBooks = React.createClass({
   render: function() {
     return (
       <div>
-        <BookList action="Delete" books={this.props.books} />
+        <BookList cardType="Delete" {...this.props} />
       </div>
     )
   }

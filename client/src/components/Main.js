@@ -5,8 +5,6 @@ import MyBooks from '../containers/MyBooksCont'
 import Trades from '../containers/TradesCont'
 import ProfileContainer from '../containers/profileContainer'
 
-console.log(MyBooks)
-
 const Main = React.createClass({
   getInitialState: function() {
     return {

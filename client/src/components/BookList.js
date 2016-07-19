@@ -1,22 +1,17 @@
 import React from 'react'
 import BookCard from '../containers/BookCardCont'
 
-const BookList = React.createClass({
-  render: function(){
-    let action = this.props.action
-    let toggleRequesting = this.props.toggleRequesting
-    console.log('props', this.props.books)
-    let books = this.props.books.map(function(book) {
-      let props = { book, action, toggleRequesting }
-      // _id or id for searching or internal id
-      return <BookCard {...props} key={props.book._id || props.book.id} />
-    })
-    return (
-      <div className="row align-middle">
-        {books}
-      </div>
-    )
-  }
-})
+const BookList = function(props) {
+  const books = props.books.map(book => <BookCard {...props} book={book} key={book._id} />)
+  return (
+    <div className="row align-middle">
+      {books}
+    </div>
+  )
+}
+
+BookList.propTypes = {
+  books: React.PropTypes.array
+}
 
 export default BookList

@@ -16,8 +16,19 @@ export function updateUser(details) {
   }
 }
 
-export function authenticateUser(bool, details) {
-  return { type: 'AUTHENTICATE_USER', bool, details }
+export function authenticateUser() {
+  return dispatch => {
+    app.authenticate()
+      .then(res => {
+        console.log('authenticated')
+        dispatch({ type: 'AUTHENTICATE_USER', bool: true, details: res.data })
+      })
+      .catch(err => {
+        console.log(err)
+        dispatch({ type: 'AUTHENTICATE_USER', bool: false, details: {} })
+
+      })
+  }
 }
 
 export function fetchAllBooks() {

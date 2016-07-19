@@ -1,50 +1,47 @@
 import React from 'react'
-import app from '../feathers-app'
+import BookCardButton from './BookCardButton'
 
-const bookService = app.service('books')
-
-let BookCard = React.createClass({
-  getButton: function() {
-    let buttons = {
-      Add: <button type="button" className="button" onClick={this.handleAdd}>Add</button>,
-      Delete: <button type="button" className="button alert" onClick={this.handleDelete}>Delete</button>,
-      Request: <button type="button" className="button success" onClick={this.handleRequest}>Request</button>,
-      Offer: <button type="button" className="button success" onClick={this.handleOffer}>Offer</button>,
-      Accept: <button type="button" className="button success" onClick={this.handleAccept}>Accept</button>,
-    }
-    return buttons[this.props.action]
+const BookCard = React.createClass({
+  propTypes: {
+    book: React.PropTypes.object,
+    clickHandler: React.PropTypes.func,
+    cardType: React.PropTypes.string
   },
+  getButton: function(type) {
+    const props = this.buttonDetails[type.toLowerCase()]
+    return <BookCardButton {...props} handleClick={this.props.clickHandler} />
+  },
+  buttonDetails: {
+    add: { class: '', label: 'Add' },
+    delete: { class: '', label: 'Add' },
+    request: { class: '', label: 'Add' },
+    offer: { class: '', label: 'Add' },
+    accept: { class: '', label: 'Add' }
+  },
+  handleClick: function(e) {
+    e.target.disabled = true
+    this.props.clickHandler(this.props.book)
+  },
+  // TODO: put this back
+  // handleImgError(e) {
+  //   e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
+  // },
   render: function() {
     return (
       <div className="book card column small-6 medium-3 large-2 align-stretch" ref="bookCol">
         <div className="flex-item">
-        <img onError={this.handleImgError} className="thumbnail book image" src={this.props.book.imageUrl || 'noimage'} alt={this.props.book.title}/>
-          </div>
+          <img
+            onError={this.handleImgError}
+            className="thumbnail book image"
+            src={this.props.book.imageUrl || 'noimage'}
+            alt={this.props.book.title}
+          />
+        </div>
         <div className="spacer"></div>
         <div className="book title">{this.props.book.title}</div>
-        {this.getButton()}
+        {this.getButton(this.props.cardType)}
       </div>
     )
-  },
-  handleImgError(e) {
-    e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
-  },
-  handleAdd(e) {
-    e.target.disabled = true
-    this.props.addBook(this.props.book)
-  },
-  handleDelete: function (e) {
-    e.target.disabled = true
-    this.props.deleteBook(this.props.book)
-  },
-  handleRequest: function() {
-    this.props.toggleRequesting()
-  },
-  handleAccept: function() {
-    notImpl()
-  },
-  handleOffer: function() {
-    this.props.toggleRequesting()
   }
 })
 

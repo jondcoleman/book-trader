@@ -1,24 +1,31 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import * as actionCreators from '../actions/actionCreators.js'
 import BookList from './BookList'
 
 const AllBooks = React.createClass({
+  propTypes: {
+    fetchAllBooks: React.PropTypes.func,
+    books: React.PropTypes.array.isRequired
+  },
   getInitialState: function() {
     return {
       requesting: false
     }
   },
-  componentDidMount: function(){
+  componentDidMount: function() {
     this.props.fetchAllBooks()
   },
   toggleRequesting: function() {
     this.setState({ requesting: !this.state.requesting })
   },
   renderVisibleComponent: function() {
-    return this.state.requesting ? <BookList action="Offer" toggleRequesting={this.toggleRequesting} books={this.props.books || []} />
-  : <BookList action="Request" toggleRequesting={this.toggleRequesting} books={this.props.myBooks || []} />
+    const cardType = this.state.requesting ? 'Offer' : 'Request'
+    return (
+      <BookList
+        cardType={cardType}
+        toggleRequesting={this.toggleRequesting}
+        books={this.props.books || []}
+      />
+    )
   },
   render: function() {
     return (
