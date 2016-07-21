@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../actions/actionCreators'
 import Trades from '../components/Trades'
 
-const mapStateToProps = state => {
-  return { trades: state.trades }
-}
+const mapStateToProps = state => ({
+  myTrades: state.trades.filter(trade => trade.bookOffered.userId === state.users._id),
+  otherTrades: state.trades.filter(trade => trade.bookRequested.userId === state.users._id)
+})
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 

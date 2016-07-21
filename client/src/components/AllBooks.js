@@ -1,36 +1,33 @@
 import React from 'react'
-import BookList from './BookList'
+import BookCard from '../containers/BookCardCont'
 
 const AllBooks = React.createClass({
   propTypes: {
     fetchAllBooks: React.PropTypes.func,
-    books: React.PropTypes.array.isRequired
-  },
-  getInitialState: function() {
-    return {
-      requesting: false
-    }
+    books: React.PropTypes.array.isRequired,
+    user: React.PropTypes.object
   },
   componentDidMount: function() {
     this.props.fetchAllBooks()
   },
-  toggleRequesting: function() {
-    this.setState({ requesting: !this.state.requesting })
-  },
-  renderVisibleComponent: function() {
-    const cardType = this.state.requesting ? 'Offer' : 'Request'
-    return (
-      <BookList
-        cardType={cardType}
-        toggleRequesting={this.toggleRequesting}
-        books={this.props.books || []}
-      />
-    )
+  getMyBooks: function() {
+    return this.props.books.filter(book => book.userId === this.props.user._id)
   },
   render: function() {
+    const books = this.props.books.map(book => {
+      const cardType = book.userId === this.props.user._id ? 'Delete' : 'Request'
+      return (
+        <BookCard
+          {...this.props}
+          cardType={cardType}
+          book={book}
+          key={book._id}
+        />
+      )
+    })
     return (
-      <div>
-        {this.renderVisibleComponent()}
+      <div className="row align-middle">
+        {books}
       </div>
     )
   }

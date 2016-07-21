@@ -1,6 +1,6 @@
 reduxifying
-- Probably need to re-architect book stuff to handle all the buttons, especially when processing trade
-- Need to only allow requests for books that aren't my own.
+- Add accept trade functionality
+- Add functionality to remove trades involving either book
 - Need to double check server side auth on everything
 
 ON SEPARATE BRANCH

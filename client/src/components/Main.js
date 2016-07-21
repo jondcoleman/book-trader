@@ -4,44 +4,42 @@ import AllBooks from '../containers/AllBooksCont'
 import MyBooks from '../containers/MyBooksCont'
 import Trades from '../containers/TradesCont'
 import ProfileContainer from '../containers/profileContainer'
+import OfferBook from '../containers/OfferBookCont'
 
 const Main = React.createClass({
-  getInitialState: function() {
-    return {
-      page: 'Add'
-    }
-  },
   getPage: function() {
     const pages = {
       Add: <BookSearch />,
       All: <AllBooks />,
       My: <MyBooks />,
       Trades: <Trades />,
-      Profile: <ProfileContainer />
+      Profile: <ProfileContainer />,
+      OfferBook: <OfferBook />
     }
-    return pages[this.state.page]
+    return pages[this.props.page]
   },
   handlePage: function(page) {
-    this.setState({ page })
+    console.log(page)
+    this.props.changePage(page)
   },
   render: function() {
     return (
       <div>
         <ul className="vertical medium-horizontal menu">
-          <li className={this.state.page === 'Add' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(this, 'Add')}>Add a Book</a>
+          <li className={this.props.page === 'Add' ? 'active' : ''}>
+            <a href="#" onClick={this.handlePage.bind(null, 'Add')}>Add a Book</a>
           </li>
-          <li className={this.state.page === 'All' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(this, 'All')}>All Books</a>
+          <li className={this.props.page === 'All' ? 'active' : ''}>
+            <a href="#" onClick={this.handlePage.bind(null, 'All')}>All Books</a>
           </li>
-          <li className={this.state.page === 'My' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(this, 'My')}>My Books</a>
+          <li className={this.props.page === 'My' ? 'active' : ''}>
+            <a href="#" onClick={this.handlePage.bind(null, 'My')}>My Books</a>
           </li>
-          <li className={this.state.page === 'Trades' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(this, 'Trades')}>Trades</a>
+          <li className={this.props.page === 'Trades' ? 'active' : ''}>
+            <a href="#" onClick={this.handlePage.bind(null, 'Trades')}>Trades</a>
           </li>
-          <li className={this.state.page === 'Profile' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(this, 'Profile')}>Profile</a>
+          <li className={this.props.page === 'Profile' ? 'active' : ''}>
+            <a href="#" onClick={this.handlePage.bind(null, 'Profile')}>Profile</a>
           </li>
         </ul>
         <hr />

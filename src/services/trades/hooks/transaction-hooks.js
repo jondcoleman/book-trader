@@ -4,9 +4,9 @@ exports.approve = function(hook) {
     .then(function(trade) {
       return Promise.all([
           // update the book offered to new owner
-          hook.app.service('books').patch(trade.bookOffered, { userId: trade.toUser }),
+          hook.app.service('books').patch(trade.bookOffered, { userId: trade.bookOffered.userId }),
           // update the book requested to new owner
-          hook.app.service('books').patch(trade.bookRequested, { userId: trade.fromUser }),
+          hook.app.service('books').patch(trade.bookRequested, { userId: trade.bookRequested.userId }),
           // mark the trade as completed
           hook.app.service('trades').patch(hook.id, { status: 'complete' })
         ])

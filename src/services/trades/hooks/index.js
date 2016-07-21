@@ -19,11 +19,8 @@ let toUserHook = function(hook) {
 }
 
 let fromUserHook = function(hook) {
-  const bookId = hook.data.bookOffered
-  return hook.app.service('books').get(bookId)
-    .then(book => {
-      hook.data.fromUser = book.userId
-    })
+  hook.data.owner = hook.data.bookOffered.userId
+  return hook
 }
 // limit trade results to the current user being the from User or to User
 let filterTradesToUser = function(hook) {
@@ -47,7 +44,7 @@ exports.before = {
     auth.restrictToAuthenticated()
   ],
   find: [],
-  get: [auth.restrictToOwner({ idField: '_id', ownerField: 'toUser' })],
+  get: [auth.restrictToOwner({ ownerField: 'owner' })],
   create: [
     globalHooks.timestamp('createdAt'),
     toUserHook,
@@ -59,11 +56,11 @@ exports.before = {
     // hooks.restrictToOwner({ idField: '_id', ownerField: 'toUser' })
   ],
   patch: [
-    auth.restrictToOwner({ idField: '_id', ownerField: 'toUser' }),
+    auth.restrictToOwner({ ownerField: 'owner' }),
     globalHooks.timestamp('updatedAt'),
     transactionHook
   ],
-  remove: [auth.restrictToOwner({ idField: '_id', ownerField: 'toUser' })]
+  remove: [auth.restrictToOwner({ ownerField: 'owner' })]
 };
 
 exports.after = {

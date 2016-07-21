@@ -2,6 +2,32 @@ body {
   padding: 10px;
 }
 
+
+.trade-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.trade-icon {
+  font-size: 2em;
+}
+
+.trade-icon.container {
+  text-align: center;
+}
+
+.trade-middle.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trade.container {
+  text-align:center;
+}
+
+
 .book.card {
   display: flex;
   flex-direction: column;

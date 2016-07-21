@@ -4,28 +4,55 @@ import BookCardButton from './BookCardButton'
 const BookCard = React.createClass({
   propTypes: {
     book: React.PropTypes.object,
-    clickHandler: React.PropTypes.func,
-    cardType: React.PropTypes.string
+    cardType: React.PropTypes.string,
+    addBook: React.PropTypes.func,
+    deleteBook: React.PropTypes.func,
+  },
+  getClickHandler: function(type) {
+    switch (type) {
+      case 'add':
+        return (e) => {
+          e.target.disabled = true
+          this.props.addBook(this.props.book)
+        }
+      case 'delete':
+        return (e) => {
+          e.target.disabled = true
+          this.props.deleteBook(this.props.book)
+        }
+      case 'request':
+        return (e) => {
+          e.target.disabled = true
+          this.props.createNewProposal(this.props.book)
+          this.props.changePage('OfferBook')
+        }
+      case 'offer':
+        return (e) => {
+          e.target.disabled = true
+          this.props.createTrade(this.props.book)
+          this.props.changePage('Trades')
+        }
+      case 'accept':
+        return null
+      default:
+        return null
+    }
   },
   getButton: function(type) {
-    const props = this.buttonDetails[type.toLowerCase()]
-    return <BookCardButton {...props} handleClick={this.props.clickHandler} />
+    const lowerType = type.toLowerCase()
+    const props = this.buttonDetails[lowerType]
+    return <BookCardButton {...props} handleClick={this.getClickHandler(lowerType)} />
   },
   buttonDetails: {
     add: { class: '', label: 'Add' },
-    delete: { class: '', label: 'Add' },
-    request: { class: '', label: 'Add' },
-    offer: { class: '', label: 'Add' },
-    accept: { class: '', label: 'Add' }
+    delete: { class: 'alert', label: 'Delete' },
+    request: { class: '', label: 'Request' },
+    offer: { class: 'success', label: 'Offer' },
+    accept: { class: 'success', label: 'Accept' }
   },
-  handleClick: function(e) {
-    e.target.disabled = true
-    this.props.clickHandler(this.props.book)
+  handleImgError(e) {
+    e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
   },
-  // TODO: put this back
-  // handleImgError(e) {
-  //   e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
-  // },
   render: function() {
     return (
       <div className="book card column small-6 medium-3 large-2 align-stretch" ref="bookCol">

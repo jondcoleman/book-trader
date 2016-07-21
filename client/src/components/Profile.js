@@ -1,14 +1,16 @@
 import React from 'react'
 import InputText from './InputText'
-import Spinner from '../components/Spinner'
-
 
 const Profile = React.createClass({
+  propTypes: {
+    user: React.PropTypes.object,
+    updateUser: React.PropTypes.func
+  },
   getInitialState: function() {
     return { user: this.props.user || {} }
   },
   componentWillReceiveProps: function(nextProps) {
-    this.setState({ user: nextProps.user || {}})
+    this.setState({ user: nextProps.user || {} })
   },
   handleInputChange: function(e) {
     const newPropObj = Object.assign({}, this.state.user)
@@ -17,7 +19,6 @@ const Profile = React.createClass({
   },
   handleSave: function(e) {
     e.preventDefault()
-    console.log(this.state.user)
     this.props.updateUser(this.state.user)
   },
   render: function() {

@@ -1,18 +1,14 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actionCreators from '../actions/actionCreators'
-import Profile from '../components/Profile'
+import OfferBook from '../components/OfferBook'
 
 const mapStateToProps = state => ({
-  user: state.users
+  books: state.books.filter(book => book.userId === state.users._id),
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 
-const ProfileContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null
-)(Profile)
+const OfferBookCont = connect(mapStateToProps, mapDispatchToProps)(OfferBook)
 
-export default ProfileContainer
+export default OfferBookCont

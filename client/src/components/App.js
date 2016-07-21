@@ -1,7 +1,6 @@
 import React from 'react'
-import Main from './Main'
+import Main from '../containers/MainCont'
 import Spinner from './Spinner'
-import AuthWrapper from './AuthWrapper'
 
 const App = React.createClass({
   propTypes: {
