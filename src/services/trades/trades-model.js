@@ -9,13 +9,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tradesSchema = new Schema({
-  fromUser: { type: Schema.ObjectId, required: false },
-  bookOffered: { type: Schema.ObjectId, required: false },
-  toUser: { type: Schema.ObjectId, required: false },
-  bookRequested: { type: Schema.ObjectId, required: false },
-  status: { type: String, required: true, 'default': 'new'},
-  createdAt: { type: Date, 'default': Date.now },
-  updatedAt: { type: Date, 'default': Date.now }
+  bookOffered: {
+    _id: String,
+    title: String,
+    imageUrl: String,
+    author: String,
+    userId: String
+  },
+  bookRequested: {
+    _id: String,
+    title: String,
+    imageUrl: String,
+    author: String,
+    userId: String
+  },
+  owner: Schema.Types.ObjectId,
+  status: { type: String, required: true, default: 'new'},
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 const tradesModel = mongoose.model('trades', tradesSchema);

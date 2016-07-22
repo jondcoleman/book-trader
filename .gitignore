@@ -31,3 +31,5 @@ lib/
 data/
 
 public/bundle.js
+public/bundle.js.map
+public/test.js

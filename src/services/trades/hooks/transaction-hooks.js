@@ -3,12 +3,12 @@ exports.approve = function(hook) {
   return hook.app.service('trades').get(hook.id)
     .then(function(trade) {
       return Promise.all([
+        // update the book requested to new owner
+          hook.app.service('books').patch(trade.bookRequested, { userId: trade.bookOffered.userId }),
           // update the book offered to new owner
-          hook.app.service('books').patch(trade.bookOffered, { userId: trade.toUser }),
-          // update the book requested to new owner
-          hook.app.service('books').patch(trade.bookRequested, { userId: trade.fromUser }),
+          hook.app.service('books').patch(trade.bookOffered, { userId: trade.bookRequested.userId }),
           // mark the trade as completed
-          hook.app.service('trades').patch(hook.id, { status: 'complete' })
+          hook.app.service('trades').remove(hook.id)
         ])
         .then(function(values) {
           hook.result = { data: 'trade completed' }

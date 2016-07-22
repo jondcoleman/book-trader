@@ -1,55 +1,74 @@
 import React from 'react'
-import books from './data'
+import BookCardButton from './BookCardButton'
 
 const BookCard = React.createClass({
-  getButton: function() {
-    let buttons = {
-      Add: <button type="button" className="button" onClick={this.handleAdd}>Add</button>,
-      Delete: <button type="button" className="button alert" onClick={this.handleDelete}>Delete</button>,
-      Request: <button type="button" className="button success" onClick={this.handleRequest}>Request</button>,
-      Choose: <button type="button" className="button success" onClick={this.handleChoose}>Choose</button>,
-      Accept: <button type="button" className="button success" onClick={this.handleAccept}>Accept</button>,
+  propTypes: {
+    book: React.PropTypes.object,
+    cardType: React.PropTypes.string,
+    addBook: React.PropTypes.func,
+    deleteBook: React.PropTypes.func,
+  },
+  getClickHandler: function(type) {
+    switch (type) {
+      case 'add':
+        return (e) => {
+          e.target.disabled = true
+          this.props.addBook(this.props.book)
+        }
+      case 'delete':
+        return (e) => {
+          e.target.disabled = true
+          this.props.deleteBook(this.props.book)
+        }
+      case 'request':
+        return (e) => {
+          e.target.disabled = true
+          this.props.createNewProposal(this.props.book)
+          this.props.changePage('OfferBook')
+        }
+      case 'offer':
+        return (e) => {
+          e.target.disabled = true
+          this.props.createTrade(this.props.book)
+          this.props.changePage('Trades')
+        }
+      case 'accept':
+        return null
+      default:
+        return null
     }
-    return buttons[this.props.action]
+  },
+  getButton: function(type) {
+    const lowerType = type.toLowerCase()
+    const props = this.buttonDetails[lowerType]
+    return <BookCardButton {...props} handleClick={this.getClickHandler(lowerType)} />
+  },
+  buttonDetails: {
+    add: { class: '', label: 'Add' },
+    delete: { class: 'alert', label: 'Delete' },
+    request: { class: '', label: 'Request' },
+    offer: { class: 'success', label: 'Offer' },
+    accept: { class: 'success', label: 'Accept' }
+  },
+  handleImgError(e) {
+    e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
   },
   render: function() {
     return (
       <div className="book card column small-6 medium-3 large-2 align-stretch" ref="bookCol">
         <div className="flex-item">
-        <img onError={this.handleImgError} className="thumbnail book image" src={this.props.book.imageUrl} alt={this.props.book.title}/>
-          </div>
+          <img
+            onError={this.handleImgError}
+            className="thumbnail book image"
+            src={this.props.book.imageUrl || 'noimage'}
+            alt={this.props.book.title}
+          />
+        </div>
         <div className="spacer"></div>
         <div className="book title">{this.props.book.title}</div>
-        {this.getButton()}
+        {this.getButton(this.props.cardType)}
       </div>
     )
-  },
-  handleImgError(e) {
-    e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
-  },
-  handleAdd(e) {
-    e.target.disabled = true
-    books.push(
-      {
-        id: this.props.book.id,
-        title: this.props.book.title,
-        authors: this.props.book.authors,
-        imageUrl: this.props.book.imageUrl
-      }
-    )
-    console.log(JSON.stringify(books))
-  },
-  handleDelete: function () {
-    notImpl()
-  },
-  handleRequest: function() {
-    notImpl()
-  },
-  handleAccept: function() {
-    notImpl()
-  },
-  handleChoose: function() {
-    notImpl()
   }
 })
 

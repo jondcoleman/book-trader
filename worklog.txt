@@ -1,5 +1,9 @@
-setting up linting - maybe need to install modules?
-next step is to hook up the back end to the front end - maybe use redux
+reduxifying
+- Add accept trade functionality
+- Add functionality to remove trades involving either book
+- Need to double check server side auth on everything
+
+ON SEPARATE BRANCH
 
 TODO
 add fetch polyfill

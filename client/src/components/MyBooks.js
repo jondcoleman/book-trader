@@ -1,12 +1,17 @@
 import React from 'react'
 import BookList from './BookList'
-import books from './data'
 
 const MyBooks = React.createClass({
+  propTypes: {
+    fetchAllBooks: React.PropTypes.func
+  },
+  componentDidMount: function() {
+    this.props.fetchAllBooks()
+  },
   render: function() {
     return (
       <div>
-        <BookList action='Delete' books={books}/>
+        <BookList cardType="Delete" {...this.props} />
       </div>
     )
   }

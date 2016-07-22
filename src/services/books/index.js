@@ -13,8 +13,8 @@ module.exports = function() {
   const options = {
     Model: books,
     paginate: {
-      default: 5,
-      max: 25
+      default: 200,
+      max: 200
     }
   };
 
