@@ -99,3 +99,10 @@ export function deleteTrade(tradeId) {
     .catch(err => console.error(err))
   }
 }
+
+export function acceptTrade(tradeId) {
+  return dispatch => {
+    tradeService.patch(tradeId, { transition: 'approve' })
+    .then((res) => dispatch({ type: 'ACCEPT_TRADE', data: res.data }))
+  }
+}

@@ -14,6 +14,7 @@ const Trade = props => {
 
   function handleAccept() {
     props.acceptTrade(props._id)
+    props.changePage('My')
   }
 
   function getButton(type) {

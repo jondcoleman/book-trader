@@ -56,7 +56,6 @@ exports.before = {
     // hooks.restrictToOwner({ idField: '_id', ownerField: 'toUser' })
   ],
   patch: [
-    auth.restrictToOwner({ ownerField: 'owner' }),
     globalHooks.timestamp('updatedAt'),
     transactionHook
   ],

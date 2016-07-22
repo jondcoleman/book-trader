@@ -27,16 +27,16 @@ const Main = React.createClass({
       <div>
         <ul className="vertical medium-horizontal menu">
           <li className={this.props.page === 'Add' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(null, 'Add')}>Add a Book</a>
+            <a href="#" onClick={this.handlePage.bind(null, 'Add')}>Add Your Books</a>
           </li>
           <li className={this.props.page === 'All' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(null, 'All')}>All Books</a>
+            <a href="#" onClick={this.handlePage.bind(null, 'All')}>Request a Book</a>
           </li>
           <li className={this.props.page === 'My' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(null, 'My')}>My Books</a>
+            <a href="#" onClick={this.handlePage.bind(null, 'My')}>Manage My Books</a>
           </li>
           <li className={this.props.page === 'Trades' ? 'active' : ''}>
-            <a href="#" onClick={this.handlePage.bind(null, 'Trades')}>Trades</a>
+            <a href="#" onClick={this.handlePage.bind(null, 'Trades')}>Pending Trades</a>
           </li>
           <li className={this.props.page === 'Profile' ? 'active' : ''}>
             <a href="#" onClick={this.handlePage.bind(null, 'Profile')}>Profile</a>

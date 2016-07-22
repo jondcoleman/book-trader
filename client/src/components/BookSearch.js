@@ -51,6 +51,7 @@ const BookSearch = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.handleSearch}>
+        <p>Search for the books you own and add them to your library.</p>
         <div className="row">
           <div className="small-12 medium-10 large-10 columns">
             <input

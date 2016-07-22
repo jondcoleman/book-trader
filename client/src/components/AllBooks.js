@@ -26,8 +26,10 @@ const AllBooks = React.createClass({
       )
     })
     return (
-      <div className="row align-middle">
-        {books}
+      <div>
+        <div className="row align-middle">
+          {books}
+        </div>
       </div>
     )
   }
