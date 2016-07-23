@@ -1,5 +1,5 @@
 reduxifying
-- Add accept trade functionality
+- modify login pages
 - Add functionality to remove trades involving either book
 - Need to double check server side auth on everything
 
