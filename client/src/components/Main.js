@@ -19,7 +19,6 @@ const Main = React.createClass({
     return pages[this.props.page]
   },
   handlePage: function(page) {
-    console.log(page)
     this.props.changePage(page)
   },
   render: function() {

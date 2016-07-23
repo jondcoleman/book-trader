@@ -1,5 +1,5 @@
 import React from 'react'
-import $ from 'jquery'
+import axios from 'axios'
 import Spinner from './Spinner'
 import BookList from './BookList'
 
@@ -23,25 +23,27 @@ const BookSearch = React.createClass({
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchText}&maxResults=24`
 
-    $.getJSON(url, data => {
-      // filter for blank titles and authors
-      const filteredItems = data.items.filter(x => x.volumeInfo.title && x.volumeInfo.authors)
-      const books = filteredItems.map(item => {
-        let imageUrl = false
-        if (item.volumeInfo.imageLinks) {
-          imageUrl = item.volumeInfo.imageLinks.smallThumbnail
-        }
-        const tArr = item.volumeInfo.title.split(' ')
-        const title = tArr.length < 5 ? tArr.join(' ') : `${tArr.slice(0, 5).join(' ')}...`
-        return {
-          title,
-          authors: item.volumeInfo.authors,
-          id: item.id,
-          imageUrl
-        }
+    axios.get(url)
+      .then(res => {
+        const data = res.data
+        // filter for blank titles and authors
+        const filteredItems = data.items.filter(x => x.volumeInfo.title && x.volumeInfo.authors)
+        const books = filteredItems.map(item => {
+          let imageUrl = false
+          if (item.volumeInfo.imageLinks) {
+            imageUrl = item.volumeInfo.imageLinks.smallThumbnail
+          }
+          const tArr = item.volumeInfo.title.split(' ')
+          const title = tArr.length < 5 ? tArr.join(' ') : `${tArr.slice(0, 5).join(' ')}...`
+          return {
+            title,
+            authors: item.volumeInfo.authors,
+            id: item.id,
+            imageUrl
+          }
+        })
+        this.setState({ books: books, loading: false })
       })
-      this.setState({ books: books, loading: false })
-    })
   },
   maybeRenderResults: function() {
     return this.state.books.length > 0

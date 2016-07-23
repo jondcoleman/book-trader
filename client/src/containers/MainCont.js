@@ -4,7 +4,6 @@ import * as actionCreators from '../actions/actionCreators'
 import Main from '../components/Main'
 
 const mapStateToProps = state => {
-  console.log(state)
   return ({ page: state.page })
 }
 

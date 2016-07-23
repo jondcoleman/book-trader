@@ -45,7 +45,7 @@ export function fetchAllBooks() {
   return (dispatch) => {
     bookService.get()
       .then(res => dispatch({ type: 'FETCH_ALL_BOOKS', books: res.data }))
-      .catch(err => console.log(err))
+      .catch(err => console.error(err))
   }
 }
 
@@ -93,7 +93,6 @@ export function createTrade(bookOffered) {
 
 export function deleteTrade(tradeId) {
   return dispatch => {
-    console.log(tradeId)
     tradeService.remove(tradeId)
     .then(() => dispatch({ type: 'DELETE_TRADE', tradeId }))
     .catch(err => console.error(err))
