@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../actions/actionCreators'
 import Main from '../components/Main'
 
-const mapStateToProps = state => {
-  return ({ page: state.page })
-}
+const mapStateToProps = state => ({ page: state.page })
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 

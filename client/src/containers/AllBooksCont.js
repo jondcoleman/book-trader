@@ -3,13 +3,11 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../actions/actionCreators'
 import AllBooks from '../components/AllBooks'
 
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, {
-    books: state.books.filter(book => book.userId !== state.users._id),
-    myBooks: state.books.filter(book => book.userId === state.users._id),
-    user: state.users
-  }, ownProps)
-}
+const mapStateToProps = (state, ownProps) => Object.assign({}, {
+  books: state.books.filter(book => book.userId !== state.users._id),
+  myBooks: state.books.filter(book => book.userId === state.users._id),
+  user: state.users
+}, ownProps)
 
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 
