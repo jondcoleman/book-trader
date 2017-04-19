@@ -51,7 +51,7 @@ const BookCard = React.createClass({
     accept: { class: 'success', label: 'Accept' }
   },
   handleImgError(e) {
-    e.target.src = 'https://dl.dropboxusercontent.com/u/600747/BookTraderAssets/no-cover.gif'
+    e.target.src = 'https://s3.amazonaws.com/jc-static-assets/BookTraderAssets/no-cover.gif'
   },
   render: function() {
     return (
